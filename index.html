@@ -133,13 +133,23 @@
         
         /* --- Benefits Section --- */
         #benefits-section p { font-size: 1.1rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: 1rem; }
-
-        /* --- NEW FOOTER STYLES --- */
+        .section-header { display: flex; justify-content: space-between; align-items: center; }
+        .section-header h2 { flex-grow: 1; }
+        .translate-button {
+            padding: 0.4rem 0.8rem; border: 1px solid var(--color-border);
+            background-color: transparent; color: var(--color-text-secondary);
+            font-family: var(--font-primary); font-weight: 600; border-radius: 6px;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .translate-button:hover { background-color: var(--color-accent); color: white; border-color: var(--color-accent); }
+        .content-block.rtl { direction: rtl; text-align: right; }
+        
+        /* --- FOOTER STYLES --- */
         .site-footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
             padding: 3rem 2rem;
-            margin-top: 4rem; /* Pushes footer down */
+            margin-top: 4rem;
             transition: background-color 0.3s;
         }
         .footer-content {
@@ -151,24 +161,15 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        .footer-brand {
-            flex-basis: 25%;
-        }
+        .footer-brand { flex-basis: 25%; }
         .footer-brand .logo {
             font-family: var(--font-logo);
             font-size: 2.5rem;
             color: var(--color-accent);
             margin-bottom: 1rem;
         }
-        .footer-brand p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        .footer-links {
-            display: flex;
-            gap: 4rem;
-            flex-wrap: wrap;
-        }
+        .footer-brand p { font-size: 0.9rem; line-height: 1.6; }
+        .footer-links { display: flex; gap: 4rem; flex-wrap: wrap; }
         .footer-column h4 {
             color: var(--footer-heading);
             text-transform: uppercase;
@@ -176,20 +177,14 @@
             letter-spacing: 1px;
             margin-bottom: 1.5rem;
         }
-        .footer-column ul {
-            list-style: none;
-        }
-        .footer-column ul li {
-            margin-bottom: 0.75rem;
-        }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 0.75rem; }
         .footer-column ul a {
             text-decoration: none;
             color: var(--footer-text);
             transition: color 0.2s;
         }
-        .footer-column ul a:hover {
-            color: var(--color-accent);
-        }
+        .footer-column ul a:hover { color: var(--color-accent); }
         .footer-bottom {
             text-align: center;
             margin-top: 3rem;
@@ -198,6 +193,17 @@
             font-size: 0.9rem;
         }
         
+        /* --- I ADDED THIS FOR LINK STYLING --- */
+        .footer-bottom a {
+            color: var(--footer-text);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-bottom a:hover {
+            color: var(--color-accent);
+        }
+
         /* --- Responsive Design --- */
         @media (max-width: 1024px) {
             .stats-grid { grid-template-columns: 1fr; }
@@ -249,8 +255,8 @@
                         <input type="number" id="time-input" value="25" min="1">
                         <select id="time-unit-select">
                             <option value="minutes" selected>Minutes</option>
-                            <option value="seconds">Seconds</option>
                             <option value="hours">Hours</option>
+                            <option value="seconds">Seconds</option>
                         </select>
                     </div>
                     <div class="buttons">
@@ -284,16 +290,21 @@
             <!-- Benefits Section -->
             <section id="benefits-section" class="content-section">
                 <div class="content-block">
-                    <h2>The Power of the Pomodoro Technique</h2>
-                    <p>The Pomodoro Technique is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. Each interval is known as a pomodoro. Here are some of its key benefits:</p>
-                    <p><strong>Improves Focus:</strong> By dedicating a set amount of time to a single task, you train your brain to resist distractions and maintain deep concentration.</p>
-                    <p><strong>Reduces Burnout:</strong> Regular, short breaks are built into the system, allowing your mind to rest and recharge. This prevents mental fatigue and keeps you motivated throughout the day.</p>
-                    <p><strong>Increases Accountability:</strong> The timer creates a sense of urgency and helps you track exactly where your time is going, making it easier to plan your work and stay on schedule.</p>
+                    <!-- Header div to hold title and button -->
+                    <div class="section-header">
+                        <h2 data-translate-key="benefitsTitle">The Power of the Pomodoro Technique</h2>
+                        <!-- Translate Button -->
+                        <button id="translate-btn" class="translate-button">للعربية</button>
+                    </div>
+                    <p data-translate-key="benefitsIntro">The Pomodoro Technique is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. Each interval is known as a pomodoro. Here are some of its key benefits:</p>
+                    <p data-translate-key="benefitsFocus"><strong>Improves Focus:</strong> By dedicating a set amount of time to a single task, you train your brain to resist distractions and maintain deep concentration.</p>
+                    <p data-translate-key="benefitsBurnout"><strong>Reduces Burnout:</strong> Regular, short breaks are built into the system, allowing your mind to rest and recharge. This prevents mental fatigue and keeps you motivated throughout the day.</p>
+                    <p data-translate-key="benefitsAccountability"><strong>Increases Accountability:</strong> The timer creates a sense of urgency and helps you track exactly where your time is going, making it easier to plan your work and stay on schedule.</p>
                 </div>
             </section>
         </div>
 
-        <!-- NEW FOOTER -->
+        <!-- FOOTER -->
         <footer class="site-footer">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -320,16 +331,18 @@
                     <div class="footer-column">
                         <h4>Connect</h4>
                         <ul>
-                            <li><a href="#">GitHub</a></li>
+                            <li><a href="https://github.com/SnipTech1" target="_blank" rel="noopener noreferrer">GitHub</a></li>
                             <li><a href="#">Twitter</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="mailto:saidzahran68@gmail.com">Contact</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
+            <!-- I EDITED THIS PART -->
             <div class="footer-bottom">
-                Copyright © <span id="copyright-year"></span> Your Name or Brand. All rights reserved.
+                Copyright © <span id="copyright-year"></span> <a href="https://github.com/SnipTech1/https-studywithmi" target="_blank" rel="noopener noreferrer">sniptech1</a>. All rights reserved.
             </div>
+            <!-- END OF EDITED PART -->
         </footer>
     </div>
 
@@ -345,6 +358,10 @@
             const statsContainer = document.getElementById('stats-container');
             const chartContainer = document.getElementById('stats-chart-container');
             const copyrightYear = document.getElementById('copyright-year');
+             // --- NEW: Translation Elements ---
+            const translateBtn = document.getElementById('translate-btn');
+            const benefitsContentBlock = document.querySelector('#benefits-section .content-block');
+            const elementsToTranslate = benefitsContentBlock.querySelectorAll('[data-translate-key]');
 
             // --- Timer State ---
             let timerInterval = null;
@@ -354,6 +371,41 @@
             let initialDurationText = "25-minute";
 
             const alarmSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+
+             // --- NEW: Translation Logic ---
+            const translations = {
+                en: {
+                    benefitsTitle: 'The Power of the Pomodoro Technique',
+                    benefitsIntro: 'The Pomodoro Technique is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. Each interval is known as a pomodoro. Here are some of its key benefits:',
+                    benefitsFocus: '<strong>Improves Focus:</strong> By dedicating a set amount of time to a single task, you train your brain to resist distractions and maintain deep concentration.',
+                    benefitsBurnout: '<strong>Reduces Burnout:</strong> Regular, short breaks are built into the system, allowing your mind to rest and recharge. This prevents mental fatigue and keeps you motivated throughout the day.',
+                    benefitsAccountability: '<strong>Increases Accountability:</strong> The timer creates a sense of urgency and helps you track exactly where your time is going, making it easier to plan your work and stay on schedule.'
+                },
+                ar: {
+                    benefitsTitle: 'قوة تقنية البومودورو',
+                    benefitsIntro: 'تقنية البومودورو هي طريقة لإدارة الوقت تستخدم مؤقتًا لتقسيم العمل إلى فترات، طولها عادةً 25 دقيقة، تفصلها فترات راحة قصيرة. تُعرف كل فترة باسم "بومودورو". إليك بعض فوائدها الرئيسية:',
+                    benefitsFocus: '<strong>تحسين التركيز:</strong> من خلال تخصيص فترة زمنية محددة لمهمة واحدة، فإنك تدرب عقلك على مقاومة المشتتات والحفاظ على تركيز عميق.',
+                    benefitsBurnout: '<strong>تقليل الإرهاق:</strong> تم دمج فترات الراحة القصيرة والمنتظمة في النظام، مما يسمح لعقلك بالراحة وإعادة الشحن. هذا يمنع التعب الذهني ويبقيك متحفزًا طوال اليوم.',
+                    benefitsAccountability: '<strong>زيادة المساءلة:</strong> يخلق المؤقت إحساسًا بالإلحاح ويساعدك على تتبع أين يذهب وقتك بالضبط، مما يسهل تخطيط عملك والبقاء على الجدول الزمني المحدد.'
+                }
+            };
+
+            let currentLang = 'en';
+
+            if (translateBtn) {
+                translateBtn.addEventListener('click', () => {
+                    currentLang = currentLang === 'en' ? 'ar' : 'en';
+                    benefitsContentBlock.classList.toggle('rtl', currentLang === 'ar');
+                    translateBtn.textContent = currentLang === 'en' ? 'للعربية' : 'English';
+                    elementsToTranslate.forEach(element => {
+                        const key = element.dataset.translateKey;
+                        if (translations[currentLang][key]) {
+                            element.innerHTML = translations[currentLang][key];
+                        }
+                    });
+                });
+            }
+
 
             const formatDurationText = (value, unit) => `${value} ${unit.slice(0, -1)}`;
 
@@ -446,7 +498,10 @@
                 const stats = getStats();
                 chartContainer.innerHTML = '';
                 const sessionsToShow = stats.slice(-7);
-                if (sessionsToShow.length === 0) return;
+                if (sessionsToShow.length === 0) {
+                    chartContainer.innerHTML = '<p>No data for chart yet.</p>'; // Added for clarity
+                    return;
+                }
                 const maxDuration = Math.max(...sessionsToShow.map(s => s.duration), 1);
                 sessionsToShow.forEach(session => {
                     const barHeight = (session.duration / maxDuration) * 100;
