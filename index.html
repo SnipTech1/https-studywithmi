@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+<link rel="icon" type "image/x-icon" href= "https://assets.streamlinehq.com/image/private/w_240,h_240,ar_1/f_auto/v1/icons/contents/book-1-6mu3id6oieduh2skb1lp.png/book-1-cmm2qfd5mwv8nwd42t5hfi.png?_a=DATAdtAAZAA0">
 <style>
     /* --- CSS Variables for Theming --- */
     :root {
@@ -82,7 +82,23 @@
     main, section { flex-shrink: 0; }
     .page-content { flex-grow: 1; }
 
-    header { display: flex; justify-content: flex-end; align-items: center; margin-bottom: 2rem; }
+    header { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        margin-bottom: 2rem; 
+    }
+    #welcome-message {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        flex-grow: 1;
+    }
+    #welcome-message .welcome-name {
+        font-family: var(--font-logo);
+        color: var(--color-accent);
+        font-size: 1.8em;
+    }
     .dark-mode-switch { position: relative; display: inline-block; width: 60px; height: 34px; }
     .dark-mode-switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--toggle-bg-off); transition: .4s; border-radius: 34px; }
@@ -95,16 +111,13 @@
     .content-block { background-color: var(--color-surface); padding: 2rem; border-radius: 12px; box-shadow: var(--shadow); transition: background-color 0.3s; margin-bottom: 2rem; }
     .content-block h2 { color: var(--color-text-primary); margin-bottom: 1.5rem; }
     
-    /* --- Auth Section Styles (NEW) --- */
+    /* --- Auth Section Styles --- */
     #auth-section input {
         width: 100%; max-width: 400px; padding: 0.75rem; margin-bottom: 1rem;
         border-radius: 6px; border: 1px solid var(--color-border);
         background-color: var(--color-bg); color: var(--color-text-primary); font-size: 1rem;
     }
-    #auth-section input:focus {
-        outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb), 0.3);
-    }
-    #auth-section .auth-buttons button {
+    #auth-section #loginBtn, #auth-section #signupBtn, #logoutBtn {
         font-family: var(--font-primary); font-size: 1rem; font-weight: 600;
         padding: 0.75rem 1.5rem; margin-right: 1rem; margin-top: 0.5rem; border: none; border-radius: 8px;
         cursor: pointer; transition: all 0.2s;
@@ -113,37 +126,51 @@
     #auth-section #loginBtn:hover { background-color: var(--color-accent-dark); }
     #auth-section #signupBtn { background-color: var(--color-text-secondary); color: white; }
     #auth-section #signupBtn:hover { background-color: #4a5568; }
-    #authStatus { margin-top: 1.5rem; font-weight: 600; min-height: 24px; color: var(--color-text-primary); }
-    .welcome-name { font-family: var(--font-logo); color: var(--color-accent); font-size: 1.3em; }
-
+    #logoutBtn { background-color: var(--color-text-secondary); color: white; }
+    #logoutBtn:hover { background-color: #4a5568; }
+    #authMessage { margin-top: 1.5rem; font-weight: 600; min-height: 24px; color: var(--color-accent); }
+    
     /* --- Timer Section --- */
     #timer-display { font-size: 10rem; font-weight: 700; text-align: center; color: var(--color-text-primary); line-height: 1; margin-bottom: 2rem; }
     .timer-controls { max-width: 500px; margin: 0 auto; }
     .time-setter { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
     #time-input { width: 100px; text-align: center; }
     #time-input, #time-unit-select { padding: 0.5rem; border-radius: 6px; border: 1px solid var(--color-border); background-color: var(--color-bg); color: var(--color-text-primary); font-size: 1rem; font-weight: 600; }
-    .buttons { display: flex; justify-content: center; gap: 1rem; transform: translateX(8px); } /* Minor shift to the right */
+    .buttons { display: flex; justify-content: center; gap: 1rem; transform: translateX(8px); }
     .buttons button { font-family: var(--font-primary); font-size: 1.1rem; font-weight: 600; padding: 0.8rem 2rem; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s; }
     #start-pause-btn { background-color: var(--color-accent); color: white; }
     #reset-btn { background-color: var(--color-text-secondary); color: white; }
 
     /* --- Statistics Section CSS --- */
-    .column-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 2px solid var(--color-border); }
     .column-header h2 { user-select: none; cursor: pointer; position: relative; }
     .column-header h2::after { content: ' ▼'; font-size: 0.7em; display: inline-block; transition: transform 0.3s ease; }
     .column-header h2.collapsed::after { transform: rotate(-90deg); }
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
     .placeholder-text { color: var(--color-text-secondary); }
     #session-list-container { max-height: 265px; overflow-y: auto; transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; }
-    .session-item { display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid var(--color-border); cursor: pointer; transition: background-color 0.2s; }
+    .session-item { display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid var(--color-border); cursor: pointer; transition: all 0.2s; }
     .session-item:hover { background-color: rgba(var(--color-accent-rgb), 0.1); }
-    .chart-container { height: 250px; display: flex; gap: 10px; align-items: flex-end; justify-content: center; padding: 1rem 0; }
+    .session-item.highlighted {
+        background-color: rgba(var(--color-accent-rgb), 0.2) !important;
+        border-left: 4px solid var(--color-accent);
+        padding-left: calc(1rem - 4px);
+    }
+    .chart-container { 
+        height: 250px; 
+        display: flex; 
+        gap: 10px; 
+        align-items: flex-end; 
+        padding: 1rem 0; 
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
     .chart-bar {
-        width: 100%;
         background: linear-gradient(180deg, var(--color-accent-dark) 0%, gold 100%);
         border-radius: 4px 4px 0 0;
         transition: all 0.3s ease-out;
         cursor: pointer;
+        min-width: 25px;
+        flex-shrink: 0;
     }
     .chart-bar:hover { transform: scaleY(1.05); }
     .chart-bar.highlighted {
@@ -153,7 +180,6 @@
     
     /* --- Benefits Section --- */
     #benefits-section .section-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--color-border); }
-    #benefits-section .section-header h2 { flex-grow: 1; border: none; margin: 0; padding-bottom: 1rem; }
     .translate-button { padding: 0.6rem 1.2rem; border: 1px solid var(--color-border); background-color: transparent; color: var(--color-text-secondary); font-family: var(--font-primary); font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s; min-width: 120px; text-align: center; }
     .translate-button:hover { background-color: var(--color-accent); color: white; border-color: var(--color-accent); }
     #benefits-section p { font-size: 1.1rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: 1rem; margin-top: 1.5rem;}
@@ -169,9 +195,30 @@
     .footer-column ul a { text-decoration: none; color: var(--footer-text); }
     .footer-bottom { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--color-border); }
 
+    /* --- Modal Styles --- */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.6); display: none;
+        justify-content: center; align-items: center;
+        z-index: 1000; opacity: 0; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.visible { display: flex; opacity: 1; }
+    .modal-content {
+        background-color: var(--color-surface); padding: 2rem 3rem; border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-align: center;
+        position: relative; color: var(--color-text-primary); max-width: 400px;
+    }
+    .modal-content h2 { font-family: var(--font-logo); color: var(--color-accent); font-size: 2.5rem; margin-bottom: 1rem; }
+    .modal-content p { font-size: 1.1rem; color: var(--color-text-secondary); }
+    .close-button {
+        position: absolute; top: 10px; right: 15px; font-size: 1.8rem;
+        font-weight: bold; color: var(--color-text-secondary); cursor: pointer; transition: color 0.2s;
+    }
+    .close-button:hover { color: var(--color-accent); }
+
     /* --- Responsive Design --- */
     @media (max-width: 1024px) { .stats-grid { grid-template-columns: 1fr; } .footer-content { flex-direction: column; text-align: center; } }
-    @media (max-width: 768px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; flex-direction: row; justify-content: space-between; } .sidebar .logo { margin-bottom: 0; } .sidebar ul { display: flex; } .main-content { margin-left: 0; padding: 1rem; } #timer-display { font-size: 6rem; } }
+    @media (max-width: 768px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; flex-direction: row; justify-content: space-between; } .sidebar .logo { margin-bottom: 0; } .sidebar ul { display: flex; } .main-content { margin-left: 0; padding: 1rem; } #timer-display { font-size: 6rem; } header { flex-wrap: wrap; } #welcome-message { width: 100%; text-align: center; margin-bottom: 1rem; order: -1; } }
 </style>
 </head>
 <body class="dark-mode">
@@ -190,15 +237,13 @@
 <!-- Main Content -->
 <div class="main-content">
     <div class="page-content">
-        <!-- Header with Dark Mode Toggle -->
         <header>
+            <div id="welcome-message"></div>
             <label class="dark-mode-switch">
                 <input type="checkbox" id="darkModeToggle" checked>
                 <span class="slider"></span>
             </label>
         </header>
-
-        <!-- Timer Section -->
         <main id="timer-section" class="content-section">
             <div id="timer-display">25:00</div>
             <div class="timer-controls content-block">
@@ -217,8 +262,6 @@
                 </div>
             </div>
         </main>
-        
-        <!-- Statistics Section -->
         <section id="stats-section" class="content-section">
             <div class="content-block">
                 <div class="stats-grid" id="stats-grid-container">
@@ -235,44 +278,44 @@
                             <h2>Session Graph</h2>
                         </div>
                         <div id="session-chart-container" class="chart-container">
-                           <p class="placeholder-text" style="text-align:center; width: 100%;">Complete a session to see the chart.</p>
+                           <p class="placeholder-text" style="text-align:center; width: 100%;">Complete a session to see chart.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Benefits Section -->
         <section id="benefits-section" class="content-section">
             <div class="content-block">
                 <div class="section-header">
-                    <h2 data-translate-key="benefitsTitle">The Power of the Pomodoro Technique</h2>
+                    <h2 data-translate-key="benefitsTitle"></h2>
                     <button id="translate-btn" class="translate-button">للعربية</button>
                 </div>
-                <p data-translate-key="benefitsIntro">The Pomodoro Technique is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. Each interval is known as a pomodoro. Here are some of its key benefits:</p>
-                <p data-translate-key="benefitsFocus"><strong>Improves Focus:</strong> By dedicating a set amount of time to a single task, you train your brain to resist distractions and maintain deep concentration.</p>
-                <p data-translate-key="benefitsBurnout"><strong>Reduces Burnout:</strong> Regular, short breaks are built into the system, allowing your mind to rest and recharge. This prevents mental fatigue and keeps you motivated throughout the day.</p>
-                <p data-translate-key="benefitsAccountability"><strong>Increases Accountability:</strong> The timer creates a sense of urgency and helps you track exactly where your time is going, making it easier to plan your work and stay on schedule.</p>
+                <p data-translate-key="benefitsIntro"></p>
+                <p data-translate-key="benefitsFocus"></p>
+                <p data-translate-key="benefitsBurnout"></p>
+                <p data-translate-key="benefitsAccountability"></p>
             </div>
         </section>
-
-        <!-- NEW: Account Section (Redesigned with Username) -->
         <section id="auth-section" class="content-section">
             <div class="content-block">
-                <h2>Login or Create Account</h2>
-                <input type="text" id="authUsername" placeholder="Username (for new accounts)"><br>
-                <input type="email" id="authEmail" placeholder="Email"><br>
-                <input type="password" id="authPassword" placeholder="Password"><br>
-                <div class="auth-buttons">
-                    <button id="loginBtn">Login</button>
-                    <button id="signupBtn">Sign Up</button>
+                <div id="login-view">
+                    <h2>Login or Create Account</h2>
+                    <input type="text" id="authUsername" placeholder="Username (for new accounts)"><br>
+                    <input type="email" id="authEmail" placeholder="Email"><br>
+                    <input type="password" id="authPassword" placeholder="Password"><br>
+                    <div class="auth-buttons">
+                        <button id="loginBtn">Login</button>
+                        <button id="signupBtn">Sign Up</button>
+                    </div>
+                    <div id="authMessage"></div>
                 </div>
-                <div id="authStatus"></div>
+                <div id="account-view" style="display: none; text-align: center;">
+                    <h2>Manage Account</h2>
+                    <button id="logoutBtn">Logout</button>
+                </div>
             </div>
         </section>
     </div>
-
-    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-brand"> <div class="logo">Pomodoro</div> <p>A simple, modern tool to help you focus and boost productivity.</p> </div>
@@ -286,17 +329,23 @@
     </footer>
 </div>
 
-<!-- Firebase SDKs (using compat for older syntax) -->
+<div id="completion-modal-overlay" class="modal-overlay">
+    <div class="modal-content">
+        <span id="close-modal-btn" class="close-button">×</span>
+        <h2>Congratulations!</h2>
+        <p>You've successfully completed a focus session.</p>
+    </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
-<!-- Combined JavaScript -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
     // =======================================================
-    // FIREBASE SETUP AND FUNCTIONS
+    // FIREBASE & AUTHENTICATION
     // =======================================================
     const firebaseConfig = {
         apiKey: "AIzaSyDVlfLLOZ9By79kY1L4-lonTgCUY-9-1tA",
@@ -307,98 +356,224 @@ document.addEventListener('DOMContentLoaded', () => {
         appId: "1:600106546191:web:8690663f9c2a9484b39f7a"
     };
 
+    let auth, db;
     try {
         firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+        auth = firebase.auth();
+        db = firebase.firestore();
+    } catch (e) { console.error("Firebase initialization failed:", e); return; }
 
-        const authUsernameInput = document.getElementById("authUsername");
-        const authEmailInput = document.getElementById("authEmail");
-        const authPasswordInput = document.getElementById("authPassword");
-        const loginBtn = document.getElementById("loginBtn");
-        const signupBtn = document.getElementById("signupBtn");
-        const authStatusDiv = document.getElementById("authStatus");
+    const loginView = document.getElementById("login-view");
+    const accountView = document.getElementById("account-view");
+    const welcomeMessage = document.getElementById("welcome-message");
+    const authUsernameInput = document.getElementById("authUsername");
+    const authEmailInput = document.getElementById("authEmail");
+    const authPasswordInput = document.getElementById("authPassword");
+    const loginBtn = document.getElementById("loginBtn");
+    const signupBtn = document.getElementById("signupBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const authMessage = document.getElementById("authMessage");
+    
+    let statsUnsubscribe = null;
 
-        function signup() {
-            const email = authEmailInput.value;
-            const password = authPasswordInput.value;
-            const username = authUsernameInput.value;
-            if (!email || !password || !username) {
-                alert("Please fill in Username, Email, and Password to sign up.");
-                return;
-            }
-            auth.createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    authStatusDiv.innerHTML = `✅ Hello, <span class="welcome-name">${username}</span>! Account created.`;
-                    return db.collection("users").doc(user.uid).set({
-                        username: username,
-                        email: user.email,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                })
-                .catch((error) => { alert("❌ " + error.message); });
-        }
-
-        function login() {
-            const email = authEmailInput.value;
-            const password = authPasswordInput.value;
-            if (!email || !password) {
-                alert("Please enter Email and Password to log in.");
-                return;
-            }
-            auth.signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    return db.collection("users").doc(user.uid).get();
-                })
-                .then((doc) => {
-                    if (doc.exists) {
-                        const username = doc.data().username;
-                        authStatusDiv.innerHTML = `✅ Welcome back, <span class="welcome-name">${username}</span>!`;
-                    } else {
-                        authStatusDiv.innerText = `✅ Logged in successfully as ${authEmailInput.value}`;
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            loginView.style.display = 'none'; accountView.style.display = 'block'; authMessage.textContent = '';
+            if (statsUnsubscribe) statsUnsubscribe();
+            db.collection("users").doc(user.uid).get().then(doc => {
+                if (doc.exists) { welcomeMessage.innerHTML = `Hi, <span class="welcome-name">${doc.data().username}</span>`; }
+            });
+            
+            // --- CRITICAL FIX IS HERE ---
+            const sessionsRef = db.collection('users').doc(user.uid).collection('sessions');
+            statsUnsubscribe = sessionsRef.orderBy('date', 'desc').onSnapshot(snapshot => {
+                const allStats = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    // This check prevents errors from documents with pending server timestamps.
+                    if (data.date && typeof data.date.toDate === 'function') {
+                        allStats.push({ id: doc.id, ...data, date: data.date.toDate().toISOString() });
                     }
-                })
-                .catch((error) => { alert("❌ " + error.message); });
+                });
+                renderStatistics(allStats);
+            }, error => console.error("Error fetching real-time stats:", error));
+        } else {
+            loginView.style.display = 'block'; accountView.style.display = 'none'; welcomeMessage.innerHTML = '';
+            if (statsUnsubscribe) statsUnsubscribe();
+            renderLocalStats();
         }
+    });
 
-        loginBtn.addEventListener('click', login);
-        signupBtn.addEventListener('click', signup);
-
-    } catch (e) {
-        console.error("Firebase initialization failed:", e);
-        document.getElementById("authStatus").innerText = "Error: Could not connect to authentication service. Check Firebase config and console settings.";
-    }
+    const signup = () => {
+        const email = authEmailInput.value, password = authPasswordInput.value, username = authUsernameInput.value;
+        authMessage.textContent = ''; if (!email || !password || !username) { authMessage.textContent = "Please fill all fields."; return; }
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(cred => db.collection("users").doc(cred.user.uid).set({ username: username, email: email, createdAt: firebase.firestore.FieldValue.serverTimestamp() }))
+            .catch(err => { authMessage.textContent = "❌ " + err.message; });
+    };
+    const login = () => {
+        const email = authEmailInput.value, password = authPasswordInput.value;
+        authMessage.textContent = ''; if (!email || !password) { authMessage.textContent = "Please enter Email and Password."; return; }
+        auth.signInWithEmailAndPassword(email, password).catch(err => { authMessage.textContent = "❌ " + err.message; });
+    };
+    const logout = () => auth.signOut().catch(error => console.error("Logout error", error));
+    loginBtn.addEventListener('click', login); signupBtn.addEventListener('click', signup); logoutBtn.addEventListener('click', logout);
 
     // =======================================================
-    // ORIGINAL POMODORO APP LOGIC
+    // POMODORO TIMER & STATS LOGIC
     // =======================================================
     const timerDisplay = document.getElementById('timer-display');
     const startPauseBtn = document.getElementById('start-pause-btn');
     const resetBtn = document.getElementById('reset-btn');
     const timeInput = document.getElementById('time-input');
     const timeUnitSelect = document.getElementById('time-unit-select');
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const copyrightYear = document.getElementById('copyright-year');
-    const translateBtn = document.getElementById('translate-btn');
-    const benefitsContentBlock = document.querySelector('#benefits-section .content-block');
-    const elementsToTranslate = benefitsContentBlock.querySelectorAll('[data-translate-key]');
     const sessionListContainer = document.getElementById('session-list-container');
     const sessionChartContainer = document.getElementById('session-chart-container');
-    const sessionHistoryToggle = document.getElementById('session-history-toggle');
-    const statsSection = document.getElementById('stats-section');
     
     let timerInterval = null;
     let totalSeconds = 25 * 60;
     let secondsRemaining = totalSeconds;
     let isPaused = true;
-    const alarmSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
-
-    const translations = {
-        en: { benefitsTitle: 'The Power of the Pomodoro Technique', benefitsIntro: 'The Pomodoro Technique is a time management method...', benefitsFocus: '<strong>Improves Focus:</strong>...', benefitsBurnout: '<strong>Reduces Burnout:</strong>...', benefitsAccountability: '<strong>Increases Accountability:</strong>...' },
-        ar: { benefitsTitle: 'قوة تقنية البومودورو', benefitsIntro: 'تقنية البومودورو هي طريقة لإدارة الوقت...', benefitsFocus: '<strong>تحسين التركيز:</strong>...', benefitsBurnout: '<strong>تقليل الإرهاق:</strong>...', benefitsAccountability: '<strong>زيادة المساءلة:</strong>...' }
+    const completionSound = new Audio('https://cdn.pixabay.com/download/audio/2022/01/18/audio_78473b1a78.mp3'); // New joyful sound
+    
+    const updateDisplay = () => {
+        const minutes = Math.floor(secondsRemaining / 60);
+        const seconds = secondsRemaining % 60;
+        timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        document.title = `${timerDisplay.textContent} - Pomodoro`;
     };
+
+    const resetTimer = () => {
+        clearInterval(timerInterval);
+        isPaused = true;
+        startPauseBtn.textContent = 'Start';
+        const timeValue = parseInt(timeInput.value, 10) || 25;
+        const timeUnit = timeUnitSelect.value;
+        switch (timeUnit) {
+            case 'hours': totalSeconds = timeValue * 3600; break;
+            case 'seconds': totalSeconds = timeValue; break;
+            default: totalSeconds = timeValue * 60; break;
+        }
+        secondsRemaining = totalSeconds;
+        updateDisplay();
+    };
+    
+    // --- FIXED TIMER COMPLETION LOGIC ---
+    const startTimer = () => {
+        if (!isPaused) return;
+        isPaused = false;
+        startPauseBtn.textContent = 'Pause';
+        const sessionDuration = totalSeconds;
+
+        timerInterval = setInterval(() => {
+            if (isPaused) return; // Prevent interval from running if paused
+            secondsRemaining--;
+            updateDisplay();
+            if (secondsRemaining < 0) {
+                clearInterval(timerInterval);
+                completionSound.play();
+                
+                logCompletedSession(sessionDuration)
+                    .then(() => {
+                        showCompletionModal();
+                    })
+                    .catch(error => {
+                        console.error("Failed to log session:", error);
+                    })
+                    .finally(() => {
+                        resetTimer(); // Reset the timer *after* everything is done
+                    });
+            }
+        }, 1000);
+    };
+
+    const pauseTimer = () => {
+        isPaused = true;
+        startPauseBtn.textContent = 'Start';
+    };
+
+    const logCompletedSession = async (durationInSeconds) => {
+        const user = auth.currentUser;
+        if (user) {
+            return db.collection('users').doc(user.uid).collection('sessions').add({
+                duration: durationInSeconds,
+                date: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        } else {
+            const stats = JSON.parse(localStorage.getItem('pomodoro-stats')) || [];
+            stats.push({ duration: durationInSeconds, date: new Date().toISOString() });
+            localStorage.setItem('pomodoro-stats', JSON.stringify(stats));
+            renderLocalStats();
+            return Promise.resolve();
+        }
+    };
+
+    function renderStatistics(allStats = []) {
+        sessionListContainer.innerHTML = ''; sessionChartContainer.innerHTML = '';
+        if (allStats.length === 0) {
+            sessionListContainer.innerHTML = '<p class="placeholder-text">No completed sessions yet.</p>';
+            sessionChartContainer.innerHTML = '<p class="placeholder-text" style="text-align:center; width: 100%;">Complete a session to see chart.</p>';
+            return;
+        }
+        const chartMaxDuration = Math.max(...allStats.map(s => s.duration).filter(Number.isFinite), 3600);
+        allStats.forEach(session => {
+            const listItem = document.createElement('div'); listItem.className = 'session-item'; listItem.dataset.sessionId = session.id;
+            const date = new Date(session.date);
+            const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            listItem.innerHTML = `<span>${formattedDate}</span><span>${Math.round(session.duration / 60)} min</span>`;
+            listItem.addEventListener('click', () => highlightElements(session.id));
+            sessionListContainer.appendChild(listItem);
+        });
+        [...allStats].reverse().forEach(session => {
+            const bar = document.createElement('div'); bar.className = 'chart-bar'; bar.dataset.sessionId = session.id;
+            const barHeightPercentage = Math.min((session.duration / chartMaxDuration) * 100, 100);
+            bar.style.height = `${Math.max(barHeightPercentage, 2)}%`;
+            bar.title = `${Math.round(session.duration / 60)} min on ${new Date(session.date).toLocaleDateString()}`;
+            bar.addEventListener('click', () => highlightElements(session.id));
+            sessionChartContainer.appendChild(bar);
+        });
+    }
+
+    function renderLocalStats() {
+        const localData = JSON.parse(localStorage.getItem('pomodoro-stats')) || [];
+        const formattedStats = localData.map(d => ({...d, id: d.date })).sort((a,b) => new Date(b.date) - new Date(a.date));
+        renderStatistics(formattedStats);
+    }
+    
+    function highlightElements(sessionId) {
+        document.querySelectorAll('.session-item.highlighted, .chart-bar.highlighted').forEach(el => el.classList.remove('highlighted'));
+        if (!sessionId) return;
+        const targetBar = document.querySelector(`.chart-bar[data-session-id="${sessionId}"]`); if (targetBar) targetBar.classList.add('highlighted');
+        const targetItem = document.querySelector(`.session-item[data-session-id="${sessionId}"]`);
+        if (targetItem) { targetItem.classList.add('highlighted'); targetItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+    }
+
+    startPauseBtn.addEventListener('click', () => isPaused ? startTimer() : pauseTimer());
+    resetBtn.addEventListener('click', resetTimer);
+    timeInput.addEventListener('change', resetTimer);
+    timeUnitSelect.addEventListener('change', resetTimer);
+
+    // =======================================================
+    // UI LOGIC (MODAL, THEME, TRANSLATION, ETC.)
+    // =======================================================
+    const modalOverlay = document.getElementById('completion-modal-overlay');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const showCompletionModal = () => modalOverlay.classList.add('visible');
+    const closeCompletionModal = () => modalOverlay.classList.remove('visible');
+    closeModalBtn.addEventListener('click', closeCompletionModal);
+    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeCompletionModal(); });
+
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const copyrightYear = document.getElementById('copyright-year');
+    const translateBtn = document.getElementById('translate-btn');
+    const benefitsContentBlock = document.querySelector('#benefits-section .content-block');
+    const elementsToTranslate = benefitsContentBlock.querySelectorAll('[data-translate-key]');
+    const sessionHistoryToggle = document.getElementById('session-history-toggle');
+    const translations = {
+        en: { benefitsTitle: 'The Power of the Pomodoro Technique', benefitsIntro: 'The Pomodoro Technique is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. Each interval is known as a pomodoro. Here are some of its key benefits:', benefitsFocus: '<strong>Improves Focus:</strong> By dedicating a set amount of time to a single task, you train your brain to resist distractions and maintain deep concentration.', benefitsBurnout: '<strong>Reduces Burnout:</strong> Regular, short breaks are built into the system, allowing your mind to rest and recharge. This prevents mental fatigue and keeps you motivated throughout the day.', benefitsAccountability: '<strong>Increases Accountability:</strong> The timer creates a sense of urgency and helps you track exactly where your time is going, making it easier to plan your work and stay on schedule.' },
+        ar: { benefitsTitle: 'قوة تقنية البومودورو', benefitsIntro: 'تقنية البومودورو هي طريقة لإدارة الوقت تستخدم مؤقتًا لتقسيم العمل إلى فترات، مدة كل منها تقليديًا 25 دقيقة، تفصلها فترات راحة قصيرة. تُعرف كل فترة باسم "بومودورو". إليك بعض فوائدها الرئيسية:', benefitsFocus: '<strong>تحسين التركيز:</strong> من خلال تخصيص فترة زمنية محددة لمهمة واحدة، فإنك تدرب عقلك على مقاومة المشتتات والحفاظ على التركيز العميق.', benefitsBurnout: '<strong>تقليل الإرهاق:</strong> فترات الراحة القصيرة والمنتظمة مدمجة في النظام، مما يسمح لعقلك بالراحة وإعادة الشحن. هذا يمنع التعب الذهني ويبقيك متحفزًا طوال اليوم.', benefitsAccountability: '<strong>زيادة المساءلة:</strong> يخلق المؤقت إحساسًا بالإلحاح ويساعدك على تتبع أين يذهب وقتك بالضبط، مما يسهل تخطيط عملك والالتزام بالجدول الزمني.' }
+    };
+    
     let currentLang = 'en';
     if (translateBtn) {
         translateBtn.addEventListener('click', () => {
@@ -407,160 +582,38 @@ document.addEventListener('DOMContentLoaded', () => {
             translateBtn.textContent = currentLang === 'en' ? 'للعربية' : 'English';
             elementsToTranslate.forEach(element => {
                 const key = element.dataset.translateKey;
-                if (key === "benefitsTitle") element.innerHTML = translations[currentLang].benefitsTitle;
+                if (translations[currentLang][key]) { element.innerHTML = translations[currentLang][key]; }
             });
-        });
-    }
-
-    const updateDisplay = () => {
-        const minutes = Math.floor(secondsRemaining / 60);
-        const seconds = secondsRemaining % 60;
-        const displayString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        timerDisplay.textContent = displayString;
-        document.title = `${displayString} - Pomodoro`;
-    };
-
-    const resetTimer = () => {
-        clearInterval(timerInterval);
-        isPaused = true;
-        startPauseBtn.textContent = 'Start';
-        const timeValue = parseInt(timeInput.value, 10);
-        const timeUnit = timeUnitSelect.value;
-        switch (timeUnit) {
-            case 'hours': totalSeconds = timeValue * 3600; break;
-            case 'seconds': totalSeconds = timeValue; break;
-            case 'minutes':
-            default: totalSeconds = timeValue * 60; break;
-        }
-        secondsRemaining = totalSeconds;
-        updateDisplay();
-    };
-    
-    const pauseTimer = () => {
-        clearInterval(timerInterval);
-        isPaused = true;
-        startPauseBtn.textContent = 'Start';
-    };
-
-    const startTimer = () => {
-        if (!isPaused) return;
-        isPaused = false;
-        startPauseBtn.textContent = 'Pause';
-        timerInterval = setInterval(() => {
-            secondsRemaining--;
-            updateDisplay();
-            if (secondsRemaining < 0) {
-                clearInterval(timerInterval);
-                alarmSound.play();
-                logCompletedSession(totalSeconds); 
-                alert(`Congratulations! You've completed your session.`);
-                resetTimer();
-            }
-        }, 1000);
-    };
-
-    const renderStatistics = () => {
-        const allStats = JSON.parse(localStorage.getItem('pomodoro-stats')) || [];
-        sessionListContainer.innerHTML = '';
-        sessionChartContainer.innerHTML = '';
-
-        if (allStats.length === 0) {
-            sessionListContainer.innerHTML = '<p class="placeholder-text">No completed sessions yet.</p>';
-            sessionChartContainer.innerHTML = '<p class="placeholder-text" style="text-align:center; width: 100%;">Complete a session to see the chart.</p>';
-            return;
-        }
-
-        const sessionsForChart = allStats.slice(-10);
-        const chartMaxDuration = 21600; // 6 hours in seconds
-
-        allStats.slice().reverse().forEach(session => {
-            const sessionId = session.date;
-            const date = new Date(sessionId);
-            const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-            const durationInMinutes = Math.round(session.duration / 60);
-            const listItem = document.createElement('div');
-            listItem.className = 'session-item';
-            listItem.dataset.sessionId = sessionId;
-            listItem.innerHTML = `<span>${formattedDate}</span><span>${durationInMinutes} min</span>`;
-            
-            listItem.addEventListener('click', () => {
-                statsSection.scrollIntoView({ behavior: 'smooth' });
-
-                document.querySelectorAll('.chart-bar.highlighted').forEach(b => b.classList.remove('highlighted'));
-                
-                const targetBar = document.querySelector(`.chart-bar[data-session-id="${sessionId}"]`);
-                if(targetBar) {
-                    targetBar.classList.add('highlighted');
-                }
-            });
-            
-            sessionListContainer.appendChild(listItem);
-        });
-
-        sessionsForChart.forEach(session => {
-            const sessionId = session.date;
-            const barHeightPercentage = Math.min((session.duration / chartMaxDuration) * 100, 100);
-            const bar = document.createElement('div');
-            const durationInMinutes = Math.round(session.duration / 60);
-            bar.className = 'chart-bar';
-            bar.dataset.sessionId = sessionId;
-            bar.style.height = `${Math.max(barHeightPercentage, 2)}%`;
-            bar.title = `${durationInMinutes} minutes`;
-            sessionChartContainer.appendChild(bar);
-        });
-    };
-
-    const logCompletedSession = (durationInSeconds) => {
-        const stats = JSON.parse(localStorage.getItem('pomodoro-stats')) || [];
-        stats.push({ date: new Date().toISOString(), duration: durationInSeconds });
-        localStorage.setItem('pomodoro-stats', JSON.stringify(stats));
-        renderStatistics();
-    };
-
-    // Event Listeners
-    startPauseBtn.addEventListener('click', () => isPaused ? startTimer() : pauseTimer());
-    resetBtn.addEventListener('click', resetTimer);
-    timeInput.addEventListener('change', resetTimer);
-    timeUnitSelect.addEventListener('change', resetTimer);
-    
-    if (sessionHistoryToggle && sessionListContainer) {
-        sessionHistoryToggle.addEventListener('click', () => {
-            const isCollapsed = sessionListContainer.style.maxHeight === '0px';
-            sessionHistoryToggle.classList.toggle('collapsed', !isCollapsed);
-            if (isCollapsed) {
-                sessionListContainer.style.maxHeight = sessionListContainer.scrollHeight + "px";
-            } else {
-                sessionListContainer.style.maxHeight = '0px';
-            }
         });
     }
 
     const applyTheme = (theme) => {
         if (theme === 'dark') {
-            document.body.classList.add('dark-mode');
-            darkModeToggle.checked = true;
+            document.body.classList.add('dark-mode'); darkModeToggle.checked = true;
         } else {
-            document.body.classList.remove('dark-mode');
-            darkModeToggle.checked = false;
+            document.body.classList.remove('dark-mode'); darkModeToggle.checked = false;
         }
         localStorage.setItem('pomodoro-theme', theme);
     };
+    darkModeToggle.addEventListener('change', () => applyTheme(darkModeToggle.checked ? 'dark' : 'light'));
 
-    darkModeToggle.addEventListener('change', () => {
-        applyTheme(darkModeToggle.checked ? 'dark' : 'light');
-    });
-
-    // Initialization
+    if (sessionHistoryToggle) {
+        sessionHistoryToggle.addEventListener('click', () => {
+            const isCollapsed = sessionListContainer.style.maxHeight === '0px';
+            sessionHistoryToggle.classList.toggle('collapsed', !isCollapsed);
+            sessionListContainer.style.maxHeight = isCollapsed ? sessionListContainer.scrollHeight + "px" : '0px';
+        });
+    }
+    
     const init = () => {
         if(copyrightYear) copyrightYear.textContent = new Date().getFullYear();
-        const savedTheme = localStorage.getItem('pomodoro-theme');
-        if (savedTheme) {
-            applyTheme(savedTheme);
-        } else {
-            applyTheme('dark'); // Default to dark mode
-        }
+        const savedTheme = localStorage.getItem('pomodoro-theme') || 'dark';
+        applyTheme(savedTheme);
         resetTimer();
-        renderStatistics();
+        elementsToTranslate.forEach(element => {
+            const key = element.dataset.translateKey;
+            if (translations[currentLang][key]) { element.innerHTML = translations[currentLang][key]; }
+        });
     };
 
     init();
